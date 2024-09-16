@@ -1,5 +1,12 @@
 const express = require('express');
 const app = express();
+const courses = [
+    {id: 1, name: 'courseOne'},
+    {id: 2, name: 'courseTwo'},
+    {id: 3, name: 'courseThree'},
+]
+
+
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -7,12 +14,14 @@ app.get('/', (req, res) => {
 
 // All courses
 app.get('/api/courses', (req, res) => {
-    res.send([1,2,3]);
+    res.send(courses);
 });
 
 // Single course
 app.get('/api/courses/:id', (req, res) => {
-    res.send(req.params.id);
+   const course = courses.find(c => c.id === parseInt(req.params.id));
+   if (!course) res.status(404).send('The course with the requested ID was not found');
+   res.send(course);
 });
 
 
