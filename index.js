@@ -1,3 +1,5 @@
+const morgan = require('morgan');
+const helmet = require('helmet');
 const Joi = require('joi');
 const logger = require('./logger')
 const authenticator = require('./authenticator')
@@ -5,12 +7,17 @@ const express = require('express');
 
 const app = express();
 
+// Built-in middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));
 
-app.use(logger);
+// Third-part middleware
+app.use(helmet());
+app.use(morgan('tiny'));
 
+// Custom third-part middleware by me :)
+app.use(logger);
 app.use(authenticator);
 
 const courses = [
