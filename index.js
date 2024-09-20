@@ -1,3 +1,4 @@
+const debug = require('debug')('app:startup');
 const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -19,15 +20,12 @@ app.use(helmet());
 // Configuration
 console.log('Application Name: ' +  config.get('name'));
 console.log('Mail Server: ' +  config.get('mail.host'));
-console.log('Mail Password: ' +  config.get('mail.password'));
-
-
-
-
+// console.log('Mail Password: ' +  config.get('mail.password'));
 
 if (app.get('env') === 'development'){
     app.use(morgan('tiny'));
-    console.log('Morgan enabled...');
+    //console.log('Morgan enabled...');
+    debug('Morgan enabled...');
 }
 
 // Custom third-part middleware by me :)
