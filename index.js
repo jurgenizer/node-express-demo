@@ -9,6 +9,10 @@ const express = require('express');
 
 const app = express();
 
+app.set('view engine', 'pug');
+app.set('views', './views'); //default
+
+
 // Built-in middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -38,11 +42,9 @@ const courses = [
     { id: 3, name: 'courseThree' },
 ]
 
-/* GET */
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+
+/* GET */
 
 // All courses
 app.get('/api/courses', (req, res) => {
@@ -65,6 +67,12 @@ app.get('/api/posts/:year/:month', (req, res) => {
 // Query string parametes
 app.get('/api/posts/:year/:month', (req, res) => {
     res.send(req.query);
+});
+
+// Render a view 
+
+app.get('/', (req, res) => {
+    res.render('index', { title: "Jurgen's Express App", message: "Hello, hello, hello"})
 });
 
 
