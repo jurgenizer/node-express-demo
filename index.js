@@ -14,7 +14,12 @@ app.use(express.static('public'));
 
 // Third-part middleware
 app.use(helmet());
-app.use(morgan('tiny'));
+
+
+if (app.get('env') === 'development'){
+    app.use(morgan('tiny'));
+    console.log('Morgan enabled...');
+}
 
 // Custom third-part middleware by me :)
 app.use(logger);
